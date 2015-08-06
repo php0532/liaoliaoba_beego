@@ -19,8 +19,8 @@ func (c *AdminController) Post() {
       //un := c.GetString("username")
       //pw := c.GetString("password")
      ad := new(models.Admin)
-     ad.insertOne("zhangyong","mima")
+     ad.InsertOne("zhangyong","mima")
     //var info = models.insertOne()
-
+    c.Ctx.WriteString("INSERT ONE")
 
 }

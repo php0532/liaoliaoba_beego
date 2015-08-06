@@ -1,7 +1,7 @@
 package models
 
 import (
-    //"fmt"
+    "fmt"
     "github.com/astaxie/beego/orm"
     _ "github.com/go-sql-driver/mysql"
 )
@@ -17,22 +17,28 @@ type Admin struct {
 
 
 func init() {
-  orm.RegisterModel(new(Admin))
+
+   
+  orm.RegisterModelWithPrefix("llb_", new(Admin))
   orm.RegisterDriver("mysql", orm.DR_MySQL)
   orm.RegisterDataBase("default", "mysql", "root:@/liaoliaoba?charset=utf8")
+ 
 }
 
  
 
-func insertOne(un,pw string) int64 {
+func (u *Admin)InsertOne(un,pw string) int64 {
   o := orm.NewOrm()
   o.Using("default")
-  admin:=new(Admin)
-  admin.AdminName=un
-  admin.AdminPass=pw
-  admin.AdminStatus=1
-  admin.AdminLower="good"
-  info,_:=o.Insert(admin)
+  u.AdminName=un
+  u.AdminPass=pw
+  u.AdminStatus=1
+  u.AdminLower="good"
+  info,err:=o.Insert(u)
+  if err!=nil {
+    fmt.Println(err)
+    panic(err)
+  }
   return info
   //fmt.Println()
 }
