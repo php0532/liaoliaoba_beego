@@ -27,14 +27,10 @@ func init() {
 
  
 
-func (u *Admin)InsertOne(un,pw string) int64 {
+func (self *Admin)InsertOne() int64 {
   o := orm.NewOrm()
   o.Using("default")
-  u.AdminName=un
-  u.AdminPass=pw
-  u.AdminStatus=1
-  u.AdminLower="good"
-  info,err:=o.Insert(u)
+  info,err:=o.Insert(self)
   if err!=nil {
     fmt.Println(err)
     panic(err)
@@ -42,3 +38,6 @@ func (u *Admin)InsertOne(un,pw string) int64 {
   return info
   //fmt.Println()
 }
+
+
+
